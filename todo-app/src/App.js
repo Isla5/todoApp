@@ -37,6 +37,12 @@ export default class App extends Component {
     console.log(this.state.titleList[selectedWorkGroupTitleIndex])
   }
 
+  onItemAdd = (newItem) => {
+    console.log(this.state.titleList[this.state.selectedWorkGroupTitleIndex])
+    let currentList = this.state.titleList[this.state.selectedWorkGroupTitleIndex];
+    currentList.todos.push(newItem);
+  }
+
   render() {
     return (
       <div className="App">
@@ -44,7 +50,10 @@ export default class App extends Component {
           onTitleAdd={this.onTitleAdd}
           titleList={this.state.titleList}
           onWorkGroupTitleSelect={this.onWorkGroupTitleSelect}/>
-        <WorkList titleList={this.state.titleList} selectedWorkGroupTitleIndex={this.state.selectedWorkGroupTitleIndex}/>
+        <WorkList
+          titleList={this.state.titleList}
+          selectedWorkGroupTitleIndex={this.state.selectedWorkGroupTitleIndex}
+          onItemAdd={this.onItemAddgg}/>
       </div>
     )
   }
