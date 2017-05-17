@@ -1,21 +1,51 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import TitleForm from './TitleForm';
+import WorkList from './WorkList'
 
-class App extends Component {
+export default class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      titleList: [
+        {
+          name: 'Work',
+          todos: [
+            {work: 'work1'},
+            {work: 'work2'}
+          ]
+        },
+        {
+          name: 'Private',
+          todos: [
+            {work: 'priv1'},
+            {work: 'priv2'}
+          ]
+        }
+      ],
+      selectedWorkGroupTitleIndex: 0
+    }
+  };
+
+  onTitleAdd = (newTitle) => {
+    let titleList = this.state.titleList;
+    titleList.push(newTitle);
+    console.log(this.state.titleList);
+  }
+
+  onWorkGroupTitleSelect = (selectedWorkGroupTitleIndex) => {
+    this.setState({selectedWorkGroupTitleIndex});
+    console.log(this.state.titleList[selectedWorkGroupTitleIndex])
+  }
+
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <TitleForm
+          onTitleAdd={this.onTitleAdd}
+          titleList={this.state.titleList}
+          onWorkGroupTitleSelect={this.onWorkGroupTitleSelect}/>
+        <WorkList titleList={this.state.titleList} selectedWorkGroupTitleIndex={this.state.selectedWorkGroupTitleIndex}/>
       </div>
-    );
+    )
   }
 }
-
-export default App;
