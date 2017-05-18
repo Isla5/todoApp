@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import _ from "lodash"
 
 export default class WorkList extends PureComponent {
   constructor(){
@@ -8,25 +9,24 @@ export default class WorkList extends PureComponent {
     }
   };
 
+  componentDidMount(){
+    console.log()
+  }
+
   onSubmit = (e) => {
     e.preventDefault();
-    console.log(this.props);
     this.setState({
       itemFieldValue: '',
     });
-    this.props.onItemAdd({work: this.state.itemFieldValue});
+    this.props.onItemAdd({work: this.state.itemFieldValue, checked: false});
   }
 
   render() {
     return (
       <div className="App">
-        <form onSubmit={this.onSubmit}>
-          <input
-            value={this.state.itemFieldValue}
-            onChange={(event) => this.setState({itemFieldValue: event.target.value})}
-          />
-          <input type='submit' value='Add Title'/>
-        </form>
+        <div className ="checkedStatus">
+          {_.filter(this.props.titleList[this.props.selectedWorkGroupTitleIndex].todos, (item) => {return item.checked == true}).length} of {this.props.titleList[this.props.selectedWorkGroupTitleIndex].todos.length}  done
+        </div>
         <ul>
           {this.props.titleList[this.props.selectedWorkGroupTitleIndex].todos.map((currentWorklist, index) => {
             return (
@@ -37,6 +37,13 @@ export default class WorkList extends PureComponent {
             )
           })}
         </ul>
+        <form onSubmit={this.onSubmit}>
+          <input
+            value={this.state.itemFieldValue}
+            onChange={(event) => this.setState({itemFieldValue: event.target.value})}
+          />
+          <input type='submit' value='+'/>
+        </form>
       </div>
     );
   }

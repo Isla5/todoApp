@@ -20,13 +20,6 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <form onSubmit={this.onSubmit}>
-          <input
-            value={this.state.titlefieldvalue}
-            onChange={(event) => this.setState({titlefieldvalue: event.target.value})}
-          />
-          <input type='submit' value='Add Title'/>
-        </form>
         <div className="App">
           <ul>
             {this.props.titleList.map((workGroupTitle, index) => {
@@ -40,6 +33,13 @@ export default class App extends Component {
             })}
           </ul>
         </div>
+        <form onSubmit={this.onSubmit}>
+          <input
+            value={this.state.titlefieldvalue}
+            onChange={(event) => this.setState({titlefieldvalue: event.target.value})}
+          />
+          <input type='submit' value='+'/>
+        </form>
       </div>
     );
   }

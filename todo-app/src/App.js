@@ -30,45 +30,47 @@ export default class App extends PureComponent {
   };
 
   onTitleAdd = (newTitle) => {
-    let titleList = this.state.titleList;
+    const titleList = this.state.titleList;
     titleList.push(newTitle);
   }
 
   onWorkGroupTitleSelect = (selectedWorkGroupTitleIndex) => {
     this.setState({selectedWorkGroupTitleIndex});
-    console.log(this.state.titleList[selectedWorkGroupTitleIndex])
+
   }
 
   onItemAdd = (newItem) => {
-    let currentList = this.state.titleList[this.state.selectedWorkGroupTitleIndex];
+    const titleList = this.state.titleList.slice();
+    const currentList = this.state.titleList[this.state.selectedWorkGroupTitleIndex];
     currentList.todos.push(newItem);
+    const newList = currentList.todos;
+    currentList.todos = _.sortBy(newList, (item) => {return item.checked});
+    this.setState({titleList});
   }
 
   onCheckedChange = (titleId, itemId) => {
-    console.log(this.state.titleList[titleId].todos[itemId].checked)
     const newList = this.state.titleList[titleId].todos;
     newList[itemId].checked = !newList[itemId].checked;
     const titleList = this.state.titleList.slice();
     titleList[titleId].todos = _.sortBy(newList, (item) => {return item.checked});
     this.setState({titleList});
-    console.log(this.state.titleList[titleId].todos[itemId].checked);
-    console.log(titleId, itemId);
-    console.log(_.sortBy(newList, (item) => {return item.checked}))
   }
 
   render() {
     return (
       <div className="App">
         <TitleForm
-          onTitleAdd={this.onTitleAdd}
+          onWorkGroupTitleSelect={this.onWorkGroupTitleSelect}
           titleList={this.state.titleList}
-          onWorkGroupTitleSelect={this.onWorkGroupTitleSelect}/>
+          onTitleAdd={this.onTitleAdd}
+        />
         <WorkList
-          checked={this.state.checked}
+          selectedWorkGroupTitleIndex={this.state.selectedWorkGroupTitleIndex}
           onCheckedChange={this.onCheckedChange}
           titleList={this.state.titleList}
-          selectedWorkGroupTitleIndex={this.state.selectedWorkGroupTitleIndex}
-          onItemAdd={this.onItemAdd}/>
+          checked={this.state.checked}
+          onItemAdd={this.onItemAdd}
+        />
       </div>
     )
   }
