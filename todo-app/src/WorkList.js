@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-export default class WorkList extends Component {
+export default class WorkList extends PureComponent {
   constructor(){
     super();
     this.state = {
@@ -9,7 +9,8 @@ export default class WorkList extends Component {
   };
 
   onSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    console.log(this.props);
     this.setState({
       itemFieldValue: '',
     });
@@ -29,8 +30,9 @@ export default class WorkList extends Component {
         <ul>
           {this.props.titleList[this.props.selectedWorkGroupTitleIndex].todos.map((currentWorklist, index) => {
             return (
-              <li key={currentWorklist.work}>
+              <li key={index}>
                 {currentWorklist.work}
+                <input type='checkbox' checked={this.props.titleList[this.props.selectedWorkGroupTitleIndex].todos[index].checked} value="None" onChange={() => this.props.onCheckedChange(this.props.selectedWorkGroupTitleIndex, index) }/>
               </li>
             )
           })}

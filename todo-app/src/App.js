@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import TitleForm from './TitleForm';
 import WorkList from './WorkList'
 
-export default class App extends Component {
+export default class App extends PureComponent {
   constructor(){
     super();
     this.state = {
@@ -10,19 +10,21 @@ export default class App extends Component {
         {
           name: 'Work',
           todos: [
-            {work: 'work1'},
-            {work: 'work2'}
+            {work: 'work1', checked: false},
+            {work: 'work2', checked: false},
+            {work: 'work3', checked: false},
+            {work: 'work4', checked: false},
           ]
         },
         {
           name: 'Private',
           todos: [
-            {work: 'priv1'},
-            {work: 'priv2'}
+            {work: 'priv1', checked: false},
+            {work: 'priv2', checked: false}
           ]
         }
       ],
-      selectedWorkGroupTitleIndex: 0
+      selectedWorkGroupTitleIndex: 0,
     }
   };
 
@@ -38,9 +40,19 @@ export default class App extends Component {
   }
 
   onItemAdd = (newItem) => {
-    console.log(this.state.titleList[this.state.selectedWorkGroupTitleIndex])
     let currentList = this.state.titleList[this.state.selectedWorkGroupTitleIndex];
     currentList.todos.push(newItem);
+  }
+
+  onCheckedChange = (titleId, itemId) => {
+    console.log(this.state.titleList[titleId].todos[itemId].checked)
+    const newList = this.state.titleList[titleId].todos;
+    newList[itemId].checked = !newList[itemId].checked;
+    const titleList = this.state.titleList.slice();
+    titleList[titleId].todos = newList;
+    this.setState({titleList});
+    console.log(this.state.titleList[titleId].todos[itemId].checked);
+    console.log(titleId, itemId)
   }
 
   render() {
@@ -51,9 +63,11 @@ export default class App extends Component {
           titleList={this.state.titleList}
           onWorkGroupTitleSelect={this.onWorkGroupTitleSelect}/>
         <WorkList
+          checked={this.state.checked}
+          onCheckedChange={this.onCheckedChange}
           titleList={this.state.titleList}
           selectedWorkGroupTitleIndex={this.state.selectedWorkGroupTitleIndex}
-          onItemAdd={this.onItemAddgg}/>
+          onItemAdd={this.onItemAdd}/>
       </div>
     )
   }
