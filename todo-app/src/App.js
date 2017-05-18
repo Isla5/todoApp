@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import TitleForm from './TitleForm';
-import WorkList from './WorkList'
+import WorkList from './WorkList';
+import _ from 'lodash';
 
 export default class App extends PureComponent {
   constructor(){
@@ -31,7 +32,6 @@ export default class App extends PureComponent {
   onTitleAdd = (newTitle) => {
     let titleList = this.state.titleList;
     titleList.push(newTitle);
-    console.log(this.state.titleList);
   }
 
   onWorkGroupTitleSelect = (selectedWorkGroupTitleIndex) => {
@@ -49,10 +49,11 @@ export default class App extends PureComponent {
     const newList = this.state.titleList[titleId].todos;
     newList[itemId].checked = !newList[itemId].checked;
     const titleList = this.state.titleList.slice();
-    titleList[titleId].todos = newList;
+    titleList[titleId].todos = _.sortBy(newList, (item) => {return item.checked});
     this.setState({titleList});
     console.log(this.state.titleList[titleId].todos[itemId].checked);
-    console.log(titleId, itemId)
+    console.log(titleId, itemId);
+    console.log(_.sortBy(newList, (item) => {return item.checked}))
   }
 
   render() {
