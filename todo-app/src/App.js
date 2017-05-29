@@ -26,6 +26,7 @@ export default class App extends PureComponent {
         }
       ],
       selectedWorkGroupTitleIndex: 0,
+      search: ''
     }
   };
 
@@ -56,12 +57,26 @@ export default class App extends PureComponent {
     this.setState({titleList});
   }
 
+  filterList = (event) => {
+    this.setState({
+      search: event.target.value.substr(0,19)
+    });
+    console.log(this.state.titleList)
+  }
+
   render() {
+    let filteredList=this.state.titleList
     return (
       <div className="App">
+        <input
+          type="text"
+          value={this.state.search}
+          onChange={this.filterList}
+        />
         <TitleForm
           onWorkGroupTitleSelect={this.onWorkGroupTitleSelect}
           titleList={this.state.titleList}
+          search={this.state.search.toLowerCase()}
           onTitleAdd={this.onTitleAdd}
         />
         <WorkList

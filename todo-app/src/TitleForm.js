@@ -18,15 +18,19 @@ export default class App extends Component {
   }
 
   render() {
+    let filteredList = this.props.titleList.filter(
+      (item) => {return item.name.toLowerCase().indexOf(this.props.search) !== -1}
+    )
     return (
       <div className="App">
         <div className="App">
           <ul>
-            {this.props.titleList.map((workGroupTitle, index) => {
+            {filteredList.map((workGroupTitle, index) => {
               return (
                 <li
                   key={index}
-                  onClick={() => this.props.onWorkGroupTitleSelect(index)}>
+                  onClick={() => this.props.onWorkGroupTitleSelect(index)}
+                >
                   {workGroupTitle.name}
                 </li>
               )
