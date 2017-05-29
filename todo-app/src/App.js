@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
+import Stopwatch from './Stopwatch';
 import TitleForm from './TitleForm';
 import WorkList from './WorkList';
-import _ from 'lodash';
 import Github from './Github';
+import _ from 'lodash';
 
 export default class App extends PureComponent {
   constructor(){
@@ -86,6 +87,7 @@ export default class App extends PureComponent {
           checked={this.state.checked}
           onItemAdd={this.onItemAdd}
         />
+        <Stopwatch/>
       </div>
     )
   }

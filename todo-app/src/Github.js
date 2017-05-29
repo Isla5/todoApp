@@ -9,6 +9,7 @@ export default class Github extends Component {
       requestFailed: false
     }
   }
+
   componentWillMount() {
     //the best place to make network requests is componentDidMount, but...
     fetch(userUrl(this.props.username))
