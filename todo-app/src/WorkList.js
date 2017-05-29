@@ -9,10 +9,6 @@ export default class WorkList extends PureComponent {
     }
   };
 
-  componentDidMount(){
-    console.log()
-  }
-
   onSubmit = (e) => {
     e.preventDefault();
     this.setState({
@@ -24,8 +20,8 @@ export default class WorkList extends PureComponent {
   render() {
     return (
       <div className="App">
-        <div className ="checkedStatus">
-          {_.filter(this.props.titleList[this.props.selectedWorkGroupTitleIndex].todos, (item) => {return item.checked == true}).length} of {this.props.titleList[this.props.selectedWorkGroupTitleIndex].todos.length}  done
+        <div className="checkedStatus">
+          {_.filter(this.props.titleList[this.props.selectedWorkGroupTitleIndex].todos, (item) => {return item.checked === true}).length} of {this.props.titleList[this.props.selectedWorkGroupTitleIndex].todos.length}  done
         </div>
         <ul>
           {this.props.titleList[this.props.selectedWorkGroupTitleIndex].todos.map((currentWorklist, index) => {

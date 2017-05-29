@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import TitleForm from './TitleForm';
 import WorkList from './WorkList';
 import _ from 'lodash';
+import Github from './Github';
 
 export default class App extends PureComponent {
   constructor(){
@@ -61,13 +62,12 @@ export default class App extends PureComponent {
     this.setState({
       search: event.target.value.substr(0,19)
     });
-    console.log(this.state.titleList)
   }
 
   render() {
-    let filteredList=this.state.titleList
     return (
       <div className="App">
+        <Github username="isla5"/>
         <input
           type="text"
           value={this.state.search}
